@@ -5,5 +5,6 @@ void main() {
 
 
 	cout << "hello world" << endl;
+	cout << "test update" << endl;
 
 }
