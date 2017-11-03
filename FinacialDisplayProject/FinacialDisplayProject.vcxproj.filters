@@ -18,5 +18,22 @@
     <ClCompile Include="Main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="HttpBase.cpp">
+      <Filter>头文件</Filter>
+    </ClCompile>
+    <ClCompile Include="HttpBoost.cpp">
+      <Filter>头文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="HttpErrorInfo.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="HttpBase.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="HttpBoost.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
