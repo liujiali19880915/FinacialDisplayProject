@@ -130,7 +130,7 @@ void HttpBoost::handle_read_head(const boost::system::error_code& err) {
 	if (response_.size() > 0) {
 		boost::asio::streambuf::const_buffers_type cbt = response_.data();
 		responseData_ += std::string(boost::asio::buffers_begin(cbt), boost::asio::buffers_end(cbt));
-		std::cout << &responseData_;
+		std::cout << responseData_;
 
 	}
 
@@ -147,8 +147,10 @@ void HttpBoost::handle_read_content(const boost::system::error_code& err) {
 		boost::asio::streambuf::const_buffers_type cbt = response_.data();
 		responseData_ += std::string(boost::asio::buffers_begin(cbt), boost::asio::buffers_end(cbt));
 		cout << &response_;
-			 
-		boost::asio::async_read(socket_, response_, boost::bind(&HttpBoost::handle_read_content, this, boost::asio::placeholders::error));
+		
+		boost::asio::async_read(socket_, response_,
+			boost::asio::transfer_at_least(1),
+			boost::bind(&HttpBoost::handle_read_content, this, boost::asio::placeholders::error));
 	}
 	else if (err != boost::asio::error::eof) {
 		std::cout << "error: " << err << endl;
