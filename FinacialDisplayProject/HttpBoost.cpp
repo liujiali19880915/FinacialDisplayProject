@@ -22,7 +22,7 @@ int  HttpBoost::get(const std::string& url) {
 }
 
 
-void  HttpBoost::handle_request_resolve(const std::string& url, pBuildRequest fun) {
+void  HttpBoost::handle_request_resolve(const std::string& url, pBuildRequest func) {
 
 	try {
 		responseData_.clear();
@@ -32,7 +32,7 @@ void  HttpBoost::handle_request_resolve(const std::string& url, pBuildRequest fu
 		std::ostream request_stream(&request_);
 
 		//合成请求
-	//	func(server, path, request_stream);
+		func(server, path, request_stream);
 
 		//解析服务地址\端口
 		boost::asio::ip::tcp::resolver::query query_(server, port);
@@ -70,7 +70,7 @@ void HttpBoost::handle_connect(const boost::system::error_code& err) {
 		return;
 	}
 	boost::asio::async_write(socket_, request_,
-		boost::bind(&HttpBoost::handle_connect, this, boost::asio::placeholders::error));
+		boost::bind(&HttpBoost::handle_write_request, this, boost::asio::placeholders::error));
 
 }
 	//发送请求
@@ -164,19 +164,39 @@ void HttpBoost::handle_read_content(const boost::system::error_code& err) {
 
 
 std::string post(std::string url) {
-	boost::asio::io_service io;
-	HttpBoost c(io);
-	c.post(url);
-	io.run();
-	return c.getResponse();
+	try {
+		boost::asio::io_service io;
+		HttpBoost c(io);
+		c.post(url);
+		io.run();
+		return c.getResponse();
+	}
+	catch (exception& e) {
+		cout << "error" << endl;
+		cerr << e.what() << endl;
+	}
 }
 
+
 std::string get(std::string url) {
-	boost::asio::io_service io;
-	HttpBoost c(io);
-	c.get(url);
-	io.run();
-	return c.getResponse();
+	try{
+	
+		boost::asio::io_service io;
+		HttpBoost c(io);
+		boost::asio::io_service::work work(io);
+		std::cout << "[test_asio_work]" << "ioser before" << endl;
+		c.get(url);
+		io.run();
+		std::cout << "[test_asio_work]" << "ioser after" << endl;
+		std::string s = c.getResponse();
+		return s;
+	
+	}
+	catch(exception& e){
+		cerr << e.what() << endl;
+	}
+	
+	
 }
 
 

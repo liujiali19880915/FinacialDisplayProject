@@ -84,9 +84,9 @@ int HttpBase::buildPostRequest(const std::string& server,
 		temp_path = temp_path.substr(0, json_pos_begin - 1);
 		
 	}
-	out_request << "POST " << temp_path.c_str() << "HTTP/1.0\r\n";
+	out_request << "POST " << temp_path.c_str() << " HTTP/1.0\r\n";
 	out_request << "Host: " << server.c_str() << "\r\n";
-	out_request << "Content-Length " << temp_json.length() << "\r\n";
+	out_request << "Content-Length: " << temp_json.length() << "\r\n";
 	out_request << "Content-type: application/x-www-form-urlencoded\r\n";
 	out_request << "Accept: */*\r\n";
 	out_request << "COnnection: close\r\n\r\n";
@@ -98,7 +98,7 @@ int HttpBase::buildGetRequest(const std::string& server,
 	const std::string& path,
 	 std::ostream& out_request) {
 
-	out_request << "Get " << path.c_str() << "HTTP/1.0\r\n";
+	out_request << "GET " << path.c_str() << " HTTP/1.0\r\n";
 	out_request << "Host: " << server.c_str() << "\r\n";
 	out_request << "Accept: */*\r\n";
 	out_request << "Connection: close\r\n\r\n";
