@@ -5,12 +5,12 @@
 using namespace std;
 
 
-mutex mutex_;
+//mutex mutex_;
 
 void func(string s) {
-	mutex_.lock();
+//	mutex_.lock();
 	cout << s << endl;
-	mutex_.unlock();
+	//mutex_.unlock();
 }
 void Test(int i)
 {

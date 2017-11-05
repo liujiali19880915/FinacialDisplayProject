@@ -123,13 +123,16 @@
     <ClCompile Include="HttpBoost.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="ThreadPool.cpp" />
+    <ClCompile Include="SharedData.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HttpBoost.h" />
     <ClInclude Include="HttpErrorInfo.h" />
     <ClInclude Include="HttpBase.h" />
     <ClInclude Include="nocopyable.h" />
+    <ClInclude Include="SharedData.h" />
     <ClInclude Include="ThreadPool.h" />
+    <ClInclude Include="UserInterface.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

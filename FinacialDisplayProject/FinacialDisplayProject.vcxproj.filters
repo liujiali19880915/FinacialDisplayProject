@@ -27,6 +27,9 @@
     <ClCompile Include="ThreadPool.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="SharedData.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HttpErrorInfo.h">
@@ -42,6 +45,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="nocopyable.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="UserInterface.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="SharedData.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
