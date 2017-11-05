@@ -196,6 +196,7 @@ std::string get(std::string url) {
 	}
 	catch(exception& e){
 		cerr << e.what() << endl;
+		return NULL;
 	}
 	
 	
