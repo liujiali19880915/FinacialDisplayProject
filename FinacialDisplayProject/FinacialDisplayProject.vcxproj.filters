@@ -19,10 +19,10 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="HttpBase.cpp">
-      <Filter>头文件</Filter>
+      <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="HttpBoost.cpp">
-      <Filter>头文件</Filter>
+      <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
