@@ -130,7 +130,7 @@ void HttpBoost::handle_read_head(const boost::system::error_code& err) {
 	if (response_.size() > 0) {
 		boost::asio::streambuf::const_buffers_type cbt = response_.data();
 		responseData_ += std::string(boost::asio::buffers_begin(cbt), boost::asio::buffers_end(cbt));
-		std::cout << responseData_;
+		std::cout << &response_;
 
 	}
 
