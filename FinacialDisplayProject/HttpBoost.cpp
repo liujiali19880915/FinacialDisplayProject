@@ -4,6 +4,7 @@
 
 HttpBoost::HttpBoost(boost::asio::io_service& io_service):
 resolver_(io_service),socket_(io_service){
+	index_ = 0;
 
 }
 
@@ -31,7 +32,7 @@ void  HttpBoost::handle_request_resolve(const std::string& url, pBuildRequest fu
 		parseURL(url, server, port, path);
 		std::ostream request_stream(&request_);
 
-		//合成请求
+		//合成请求语句
 		func(server, path, request_stream);
 
 		//解析服务地址\端口
@@ -120,6 +121,7 @@ void HttpBoost::handle_read_head(const boost::system::error_code& err) {
 		std::cout << "Error: " << err << endl;
 		return;
 	}
+	index_ = 0;
 	std::istream response_stream(&response_);
 	std::string header;
 	while (std::getline(response_stream, header) && header != "\r") {
@@ -130,7 +132,10 @@ void HttpBoost::handle_read_head(const boost::system::error_code& err) {
 	if (response_.size() > 0) {
 		boost::asio::streambuf::const_buffers_type cbt = response_.data();
 		responseData_ += std::string(boost::asio::buffers_begin(cbt), boost::asio::buffers_end(cbt));
-		std::cout << responseData_;
+		//cout << &response_;
+		//cout << endl;
+		//cout << "read times:"<<(++index_)<<endl;
+		//cout << responseData_;
 
 	}
 
@@ -146,7 +151,10 @@ void HttpBoost::handle_read_content(const boost::system::error_code& err) {
 	if (!err) {
 		boost::asio::streambuf::const_buffers_type cbt = response_.data();
 		responseData_ += std::string(boost::asio::buffers_begin(cbt), boost::asio::buffers_end(cbt));
-		cout << &response_;
+		//cout << &response_;
+		//cout << endl;
+		//cout << "read times:" << (++index_) << endl;
+		//cout << responseData_;
 		
 		boost::asio::async_read(socket_, response_,
 			boost::asio::transfer_at_least(1),
@@ -160,6 +168,7 @@ void HttpBoost::handle_read_content(const boost::system::error_code& err) {
 		socket_.close();
 		resolver_.cancel();
 		std::cout << "读取数据完毕!" << endl;
+		cout << responseData_ << endl; //显示所有读取到的数据
 	}
 
 }

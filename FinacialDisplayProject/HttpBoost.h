@@ -12,6 +12,7 @@ private:
 	boost::asio::streambuf request_;			//请求缓存区
 	boost::asio::streambuf response_;			//读取缓存区
 	std::string responseData_;
+	int index_;
 public:
 	HttpBoost(boost::asio::io_service& io_service);
 	virtual ~HttpBoost();
