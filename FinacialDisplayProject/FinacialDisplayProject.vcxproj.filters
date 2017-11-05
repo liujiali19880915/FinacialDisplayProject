@@ -19,13 +19,10 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="HttpBase.cpp">
-      <Filter>源文件</Filter>
+      <Filter>头文件</Filter>
     </ClCompile>
     <ClCompile Include="HttpBoost.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="ThreadPool.cpp">
-      <Filter>源文件</Filter>
+      <Filter>头文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -36,9 +33,6 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="HttpBoost.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ThreadPool.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
