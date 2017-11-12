@@ -30,6 +30,12 @@
     <ClCompile Include="SharedData.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="UserInterface.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="UserInput.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HttpErrorInfo.h">
@@ -51,6 +57,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="SharedData.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="UserInput.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

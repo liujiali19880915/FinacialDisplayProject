@@ -1,5 +1,6 @@
 #include"HttpBoost.h"
 #include"HttpErrorInfo.h"
+#include "SharedData.h"
 #include<boost/bind.hpp>
 
 HttpBoost::HttpBoost(boost::asio::io_service& io_service):
@@ -9,6 +10,10 @@ resolver_(io_service),socket_(io_service){
 
 HttpBoost::~HttpBoost() {
 
+}
+string HttpBoost::getResponse() {
+	
+	return responseData_;
 }
 int HttpBoost::post(const std::string& url) {
 	handle_request_resolve(url, HttpBase::buildPostRequest);
@@ -130,7 +135,7 @@ void HttpBoost::handle_read_head(const boost::system::error_code& err) {
 	if (response_.size() > 0) {
 		boost::asio::streambuf::const_buffers_type cbt = response_.data();
 		responseData_ += std::string(boost::asio::buffers_begin(cbt), boost::asio::buffers_end(cbt));
-		std::cout << &response_;
+	//	std::cout << &response_;
 
 	}
 
@@ -146,7 +151,7 @@ void HttpBoost::handle_read_content(const boost::system::error_code& err) {
 	if (!err) {
 		boost::asio::streambuf::const_buffers_type cbt = response_.data();
 		responseData_ += std::string(boost::asio::buffers_begin(cbt), boost::asio::buffers_end(cbt));
-		cout << &response_;
+		//cout << &response_;
 		
 		boost::asio::async_read(socket_, response_,
 			boost::asio::transfer_at_least(1),
@@ -159,6 +164,10 @@ void HttpBoost::handle_read_content(const boost::system::error_code& err) {
 	else {
 		socket_.close();
 		resolver_.cancel();
+	
+		cout << "test cout2" << endl;
+		SharedData *shareData = SharedData::getInstance();
+		shareData->writeData(responseData_);
 		std::cout << "读取数据完毕!" << endl;
 	}
 
@@ -176,6 +185,7 @@ std::string post(std::string url) {
 	catch (exception& e) {
 		cout << "error" << endl;
 		cerr << e.what() << endl;
+		return NULL;
 	}
 }
 
@@ -183,7 +193,7 @@ std::string post(std::string url) {
 std::string get(std::string url) {
 	try{
 	
-		boost::asio::io_service io;
+		boost::asio::io_service io;	
 		HttpBoost c(io);
 		boost::asio::io_service::work work(io);
 		std::cout << "[test_asio_work]" << "ioser before" << endl;
@@ -201,6 +211,7 @@ std::string get(std::string url) {
 	
 	
 }
+
 
 
 

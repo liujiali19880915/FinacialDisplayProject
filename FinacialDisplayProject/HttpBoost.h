@@ -2,6 +2,9 @@
 #define _HTTPBOOST_H_
 
 #include "HttpBase.h"
+
+
+
 #include<boost/asio.hpp>
 
 
@@ -12,14 +15,14 @@ private:
 	boost::asio::streambuf request_;			//请求缓存区
 	boost::asio::streambuf response_;			//读取缓存区
 	std::string responseData_;
+
 public:
 	HttpBoost(boost::asio::io_service& io_service);
 	virtual ~HttpBoost();
 	virtual int post(const std::string& url);
 	virtual int get(const std::string& url);
-	virtual std::string getResponse(void) {
-		return responseData_;
-	}
+	virtual std::string getResponse(void);
+
 private:
 	//建立请求
 	void handle_request_resolve(const std::string& url, pBuildRequest fun);

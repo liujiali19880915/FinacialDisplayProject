@@ -1,11 +1,12 @@
 #include <iostream>
-#include"HttpBoost.h"
-#include"ThreadPool.h"
+//#include"HttpBoost.h"
+//#include"ThreadPool.h"
+#include"UserInterface.h"
 #include<mutex>
 using namespace std;
 
 
-//mutex mutex_;
+mutex mutex_;
 
 void func(string s) {
 //	mutex_.lock();
@@ -24,9 +25,9 @@ void Test(int i)
 void main() {
 
 	/*test read data
-	std::string str = "http://quotes.money.163.com/service/chddata.html?code=0000001&start=20171001&end=20171031&fields=TCLOSE;HIGH;LOW;TOPEN;LCLOSE;CHG;PCHG;VOTURNOVER;VATURNOVER";
+	std::string str = "http://quotes.money.163.com/stock#1b01";
  	str = get(str);
-	std::cout << str.c_str() << std::endl;*/
+	std::cout << str.c_str() << std::endl
 
 	//test thread pool
 	ThreadPool threadPool;
@@ -39,6 +40,10 @@ void main() {
 		threadPool.run(task);
 	}
 
-	getchar();
+	getchar();*/
+	UserInterface mainInterface;
+	mainInterface.run();
+
+
 
 }

@@ -10,13 +10,17 @@ using namespace std;
 class SharedData{
 public:
 	string sharedData;
-	SharedData(string s);
-	~SharedData();
 	void writeData(string s);
 	string readData();
+	void displayData(string s);
+	static SharedData* getInstance();
 	void displayData();
 private:
 	mutex sharedDataMutex;
+	static SharedData* uniqueInstance;
+	SharedData(string s);
+	SharedData();
+	~SharedData();
 };
 
 

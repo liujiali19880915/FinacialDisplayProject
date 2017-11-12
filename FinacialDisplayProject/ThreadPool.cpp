@@ -9,6 +9,8 @@ ThreadPool::ThreadPool(const string &name) :
 	_maxQueueSize(0),
 	_running(false)
 {
+	setMaxQueueSize(5);
+	start(5);
 
 }
 
@@ -18,6 +20,12 @@ ThreadPool::~ThreadPool()
 	{
 		stop();
 	}
+	if (uniqueInstance == NULL) {
+		       return;
+		
+	}
+    delete uniqueInstance;
+    uniqueInstance = 0;
 }
 
 void ThreadPool::start(int numThreads)
@@ -119,4 +127,12 @@ void ThreadPool::runInThread()
 		cerr << _name.c_str() << endl;
 		
 	}
+}
+ThreadPool* ThreadPool::uniqueInstance = NULL;
+ThreadPool* ThreadPool::getInstance() {
+	if (uniqueInstance == NULL) {
+		uniqueInstance = new ThreadPool;
+		return uniqueInstance;
+	}
+	return uniqueInstance;
 }
