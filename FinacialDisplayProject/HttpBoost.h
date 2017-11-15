@@ -2,10 +2,7 @@
 #define _HTTPBOOST_H_
 
 #include "HttpBase.h"
-
-
-
-#include<boost/asio.hpp>
+#include<boost\asio.hpp>
 
 
 class HttpBoost: public HttpBase {
@@ -15,6 +12,7 @@ private:
 	boost::asio::streambuf request_;			//请求缓存区
 	boost::asio::streambuf response_;			//读取缓存区
 	std::string responseData_;
+	int queryType;  //请求类型，1 为刷新请求， 2为查询请求
 
 public:
 	HttpBoost(boost::asio::io_service& io_service);
@@ -22,6 +20,7 @@ public:
 	virtual int post(const std::string& url);
 	virtual int get(const std::string& url);
 	virtual std::string getResponse(void);
+	void setQueryType(int type);
 
 private:
 	//建立请求
@@ -37,7 +36,7 @@ private:
 	void handle_read_status_line(const boost::system::error_code& err);
 
 	//获取响应头
-	void handle_read_head(const boost::system::error_code& err);
+	void handle_read_headers(const boost::system::error_code& err);
 
 	//获取数据
 	void handle_read_content(const boost::system::error_code& err);

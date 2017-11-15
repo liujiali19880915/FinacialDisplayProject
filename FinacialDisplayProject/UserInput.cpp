@@ -1,12 +1,12 @@
 #include "UserInput.h"
-#include "SharedData.h"
+
 #include<boost\thread\thread.hpp>
+#include <boost/date_time/posix_time/posix_time.hpp>
 #include<vector>
 
 
 UserInput::UserInput(){
 	threadPool = ThreadPool::getInstance();
-
 }
 
 UserInput::~UserInput()
@@ -15,42 +15,29 @@ UserInput::~UserInput()
 
 //主程序，等待用户输入
 void UserInput::getUserInputRun() {
-		getUserInput();
-		cout << "test cout1" << endl;
-		boost::this_thread::sleep(boost::posix_time::seconds(3));
-		SharedData *shareData = SharedData::getInstance();
-		shareData->displayData();
-		cout << "Press 1 continue query, 0 exit" << endl;
+	
+		string queryAgainStr = "Do you want to query some stock information you are interested, Yes 1, No 0";
+		cout << queryAgainStr << endl;
+	
 		int choose;
 		cin >> choose; //0表示退出程序
-		while (1) {
-			
-			if (choose != 0) {
-				getUserInput();
-				cin >> choose;
-			}
-			else {
-				exit(0);
-			}
-			
-		}
-
+		if (choose == 1)
+			getUserInput();
+		
 }
+
+
 std::string gets(std::string url) {
 	try {
 
 		boost::asio::io_service io;
 		HttpBoost c(io);
 		boost::asio::io_service::work work(io);
-		//	std::cout << "[test_asio_work]" << "ioser before" << endl;
 		c.get(url);
+		c.setQueryType(2);
 		io.run();
-		//	std::cout << "[test_asio_work]" << "ioser after" << endl;
-
-		std::string s = c.getResponse();
-		cout << "test cout3" << endl;
-		cout <<"run over" <<s.c_str() << endl;
-		return s;
+	
+		return NULL;
 
 	}
 	catch (exception& e) {
@@ -60,17 +47,19 @@ std::string gets(std::string url) {
 
 
 }
+
 //获取用户输入
 void UserInput::getUserInput(void) {
-
-
-	cout << "please input your interestred stock code" << endl;
-	cout << "Format:   stockecode,StartDate,EndDate" << endl;
-	cout << "Example:  0000001, 20171101, 20171112" << endl;
+	string inputFormatStr1 = "please input your interestred stock code \n";
+	string inputFormatStr2 = "Format:   stockecode,StartDate,EndDate\n";
+	string inputFormatStr3 = "Example: 0000001,20171101,20171102\n";
+	string inputFormatStr = inputFormatStr1 + inputFormatStr2 + inputFormatStr3;
+	cout << inputFormatStr ;
 	cin >> queryStr;
 
 	while (!CheckQueryFormat()) {
-		cout << "invalid inpout, please input again" << endl;
+		cout<<"invalid inpout, please input again\n";
+	
 		cin >> queryStr;
 	}
 	auto task = bind(gets, getQueryString());
@@ -101,7 +90,6 @@ void  UserInput::stringSplit(const std::string& s, std::vector<std::string>& v, 
 	while (std::string::npos != pos2)
 	{
 		v.push_back(s.substr(pos1, pos2 - pos1));
-
 		pos1 = pos2 + c.size();
 		pos2 = s.find(c, pos1);
 	}
@@ -116,6 +104,5 @@ void  UserInput::stringSplit(const std::string& s, std::vector<std::string>& v, 
 	 string start_ = queryVector.at(1);
 	 string end_ = queryVector.at(2);
 	 string queryPath_ = queryHead_ + queryCode+code_ + startDate + start_ + endDate + end_ + queryTail;
-	 cout << queryPath_ << endl;
 	 return queryPath_;
 }

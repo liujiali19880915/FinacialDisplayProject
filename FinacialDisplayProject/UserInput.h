@@ -1,10 +1,13 @@
 #ifndef _USERINPUT_H_
 #define _USERINPUT_H_
+
 #include<iostream>
 #include<string>
 #include<vector>
+
 #include"ThreadPool.h"
 #include"HttpBoost.h"
+
 using namespace std;
 
 class UserInput
@@ -12,7 +15,7 @@ class UserInput
 public:
 	UserInput();
 	~UserInput();
-	void UserInput::getUserInput(void);
+	void getUserInput(void);
 	bool CheckQueryFormat();
 	void stringSplit(const std::string& s, std::vector<std::string>& v, const std::string& c);
 	string getQueryString();
@@ -20,6 +23,7 @@ public:
 
 private:
 	ThreadPool *threadPool;
+	
 	string queryStr;
 	vector<string> queryVector;
 	string splitStr = ",";
